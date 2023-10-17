@@ -11,37 +11,27 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class PoemsController : ControllerBase
     {
-        IUserService _userService;
-        public UsersController(IUserService userService)
+        IPoemService _poemService;
+        public PoemsController(
+            IPoemService poemService)
         {
-            _userService = userService;
+            _poemService = poemService;
+        }
+        [HttpPost("add")]
+        public IActionResult Add(Poem poem) {
+            var result = _poemService.Add(poem);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _userService.GetAll();
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-        [HttpGet("getbyemail")]
-        public IActionResult GetByEmail(string email)
-        {
-            var result = _userService.GetByEmail(email);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-        [HttpPost("add")]
-        public IActionResult Add(User user)
-        {
-            var result = _userService.Add(user);
+            var result = _poemService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -49,9 +39,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("delete")]
-        public IActionResult Delete(int userId)
+        public IActionResult Delete(int poemId)
         {
-            var result = _userService.Delete(userId);
+            var result = _poemService.Delete(poemId);
             if (result.Success)
             {
                 return Ok(result);
@@ -59,16 +49,24 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("update")]
-        public IActionResult Update(User user)
+        public IActionResult Update(Poem poem)
         {
-            var result = _userService.Update(user);
+            var result = _poemService.Update(poem);
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
-
-
+        [HttpGet("getbyuserıd")] 
+        public IActionResult GetByUserId(int userId)
+        {
+            var result = _poemService.GetByUserId(userId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 }

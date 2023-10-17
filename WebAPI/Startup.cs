@@ -31,6 +31,12 @@ namespace WebAPI
 
             services.AddSingleton<IUserService, UserManager>();
             services.AddSingleton<IUserDal, EfUserDal>();
+
+            services.AddSingleton<IPoemService, PoemManager>();
+            services.AddSingleton<IPoemDal, EfPoemDal>();
+
+            services.AddSingleton<IPoemScoreService, PoemScoreManager>();
+            services.AddSingleton<IPoemScoreDal, EfPoemScoreDal>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
