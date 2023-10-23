@@ -53,10 +53,11 @@ namespace WebAPI
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
             app.UseStaticFiles();
 
             app.UseRouting();
-
+                
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

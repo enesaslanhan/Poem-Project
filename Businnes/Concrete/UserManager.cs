@@ -17,13 +17,14 @@ namespace Businnes.Concrete
         }
         public IResult Add(User user)
         {
-            _userDal.Add(user);
-            var result = _userDal.Get(u => u.Id == user.Id);
-            if (result!=null)
+            var result = UserControl(user.Email);
+            if (result.Success==true)
             {
+                _userDal.Add(user);
                 return new SuccessResult("Kullanıcı Eklendi");
+                
             }
-            return new ErrorResult("Kullanıcı Eklenemedi");
+            return new ErrorResult("Kullanıcı mevcut");
             
         }
 
@@ -57,6 +58,15 @@ namespace Businnes.Concrete
             result.Password = user.Password;
             _userDal.Update(result);
             return new SuccessResult("Kullanıcı güncellendi");
+        }
+        private IResult UserControl(string email)
+        {
+            var result = GetByEmail(email);
+            if (result.Data!=null)
+            {
+                return new ErrorResult();
+            }
+            return new SuccessResult();
         }
     }
 }
