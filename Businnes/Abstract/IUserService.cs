@@ -13,5 +13,6 @@ namespace Businnes.Abstract
         IResult Update(User user);
         IDataResult<List<User>> GetAll();
         IDataResult<User> GetByEmail(string email);
+        IDataResult<User> GetById(int id);
     }
 }

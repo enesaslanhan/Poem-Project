@@ -17,8 +17,9 @@ namespace Businnes.Concrete
         }
         public IResult Add(User user)
         {
-            var result = UserControl(user.Email);
-            if (result.Success==true)
+            var result1 = CheckEmail(user.Email);
+            var result2 = UserControl(user.Email);
+            if (result2.Success==true && result1.Success==true)
             {
                 _userDal.Add(user);
                 return new SuccessResult("Kullanıcı Eklendi");
@@ -67,6 +68,22 @@ namespace Businnes.Concrete
                 return new ErrorResult();
             }
             return new SuccessResult();
+        }
+        private IResult CheckEmail(string email)
+        {
+            for (int i = 0; i < email.Length; i++)
+            {
+                if (email[i]=='@')
+                {
+                    return new SuccessResult();
+                }
+            }
+            return new ErrorResult();
+        }
+
+        public IDataResult<User> GetById(int id)
+        {
+            return new SuccessDataResult<User>(_userDal.Get(u => u.Id == id));
         }
     }
 }
