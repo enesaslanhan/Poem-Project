@@ -68,5 +68,15 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+        [HttpGet("getbypoemid")]
+        public IActionResult GetByPoemId(int poemId)
+        {
+            var result = _poemService.GetByPoemId(poemId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 }

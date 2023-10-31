@@ -43,6 +43,11 @@ namespace Businnes.Concrete
             return new SuccessDataResult<List<Poem>>(_poemDal.GetAll());
         }
 
+        public IDataResult<Poem> GetByPoemId(int poemId)
+        {
+            return new SuccessDataResult<Poem>(_poemDal.Get(p => p.Id == poemId));
+        }
+
         public IDataResult<List<Poem>> GetByUserId(int userId)
         {
             return new SuccessDataResult<List<Poem>>(_poemDal.GetAll(p => p.UserId == userId));

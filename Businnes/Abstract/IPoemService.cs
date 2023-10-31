@@ -13,6 +13,7 @@ namespace Businnes.Abstract
         IResult Update(Poem poem);
         IDataResult<List<Poem>> GetAll();
         IDataResult<List<Poem>> GetByUserId(int userId);
+        IDataResult<Poem> GetByPoemId(int poemId);
 
     }
 }

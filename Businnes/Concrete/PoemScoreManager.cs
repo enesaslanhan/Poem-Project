@@ -15,15 +15,23 @@ namespace Businnes.Concrete
         {
             _poemScoreDal = poemScoreDal;
         }
+        
         public IResult Add(PoemScore poemScore)
         {
-            _poemScoreDal.Add(poemScore);
-            var result = _poemScoreDal.Get(ps => ps.Id == poemScore.Id);
-            if (result!=null)
+            var result2 = CheckIfScore(poemScore);
+            if (result2.Success)
             {
-                return new SuccessResult("Puan verildi");
+                _poemScoreDal.Add(poemScore);
+                var result = _poemScoreDal.Get(ps => ps.Id == poemScore.Id);
+                if (result != null)
+                {
+                    return new SuccessResult("Puan verildi");
+                }
+                return new ErrorResult("Puan verilemedi");
             }
-            return new ErrorResult("Puan verilemedi");
+            return new ErrorResult("Bir şiire birden fazla puan veremezsiniz");
+            
+            
         }
 
         public IResult Delete(PoemScore poemScore)
@@ -59,6 +67,19 @@ namespace Businnes.Concrete
             result.Score = poemScore.Score;
             _poemScoreDal.Update(result);
             return new SuccessResult("Puan Güncellendi");
+        }
+        private IResult CheckIfScore(PoemScore poemScore)
+        {
+            var result = _poemScoreDal.GetAll(p => p.UserId == poemScore.UserId);
+            foreach (var item in result)
+            {
+                if (item.PoemId==poemScore.PoemId)
+                {
+                    return new ErrorResult();
+                }
+            }
+            return new SuccessResult();
+            
         }
     }
 }
