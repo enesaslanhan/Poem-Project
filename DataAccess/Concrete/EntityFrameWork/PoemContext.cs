@@ -15,6 +15,7 @@ namespace DataAccess.Concrete.EntityFrameWork
         public DbSet<User> Users { get; set; }
         public DbSet<Poem> Poems { get; set; }
         public DbSet<PoemScore> PoemScores { get; set; }
+        public DbSet<PoemGetScore> PoemGetScore { get; set; }
 
     }
 }

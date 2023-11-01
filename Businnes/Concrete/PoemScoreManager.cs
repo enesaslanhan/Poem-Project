@@ -11,9 +11,13 @@ namespace Businnes.Concrete
     public class PoemScoreManager : IPoemScoreService
     {
         IPoemScoreDal _poemScoreDal;
-        public PoemScoreManager(IPoemScoreDal poemScoreDal)
+        IPoemGetScoreService _poemGetScoreService;
+        
+        public PoemScoreManager(IPoemScoreDal poemScoreDal,IPoemGetScoreService poemGetScoreService)
         {
             _poemScoreDal = poemScoreDal;
+            _poemGetScoreService = poemGetScoreService;
+            
         }
         
         public IResult Add(PoemScore poemScore)
@@ -25,6 +29,14 @@ namespace Businnes.Concrete
                 var result = _poemScoreDal.Get(ps => ps.Id == poemScore.Id);
                 if (result != null)
                 {
+                    PoemGetScore _poemGetScore = new PoemGetScore();
+                   
+                    _poemGetScore.PoemId = poemScore.PoemId;
+                    _poemGetScore.Score = poemScore.Score;
+                    _poemGetScore.NumberOfUser = 1;
+                    _poemGetScoreService.Add(_poemGetScore);
+                    
+                    
                     return new SuccessResult("Puan verildi");
                 }
                 return new ErrorResult("Puan verilemedi");
