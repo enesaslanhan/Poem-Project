@@ -49,12 +49,12 @@ namespace Businnes.Concrete
 
         public IResult Update(PoemGetScore poemGetScore)
         {
-            var result = _poemGetScoreDal.Get(p => p.Id == poemGetScore.Id);
+            var result = _poemGetScoreDal.Get(p => p.PoemId == poemGetScore.PoemId);
             if (result!=null)
             {
 
-                result.Score = result.Score;
-                result.NumberOfUser++;
+                result.Score = ((result.Score*result.NumberOfUser)+poemGetScore.Score)/(result.NumberOfUser+1);
+                result.NumberOfUser=result.NumberOfUser+1;
                 _poemGetScoreDal.Update(result);
                 return new SuccessResult();
             }
