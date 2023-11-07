@@ -68,7 +68,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-        [HttpPost("getbypoemıd")]
+        [HttpGet("getbypoemid")]
         public IActionResult GetByPoemId(int poemId)
         {
             var result = _poemScoreService.GetByPoemId(poemId);
