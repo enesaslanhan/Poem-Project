@@ -48,5 +48,15 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+        [HttpPost("delete")]
+        public IActionResult Delete(int id)
+        {
+            var result = _poemGetScoreService.Delete(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 }

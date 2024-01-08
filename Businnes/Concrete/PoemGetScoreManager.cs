@@ -36,10 +36,20 @@ namespace Businnes.Concrete
             
         }
 
-        public IResult Delete(PoemGetScore poemGetScore)
+        public IResult Delete(int poemId)
         {
-            _poemGetScoreDal.Delete(poemGetScore);
-            return new SuccessResult();
+            var remove = _poemGetScoreDal.Get(pgs => pgs.PoemId == poemId);
+            if (remove!=null)
+            {
+                _poemGetScoreDal.Delete(remove);
+            }
+            var result = _poemGetScoreDal.Get(pgs => pgs.PoemId == poemId);
+            if (result==null)
+            {
+                return new SuccessResult();
+            }
+            return new ErrorResult();
+            
         }
 
         public IDataResult<List<PoemGetScore>> GetAll()

@@ -9,7 +9,7 @@ namespace Businnes.Abstract
     public interface IPoemGetScoreService
     {
         IResult Add(PoemGetScore poemGetScore);
-        IResult Delete(PoemGetScore poemGetScore);
+        IResult Delete(int poemId);
         IResult Update(PoemGetScore poemGetScore);
         IDataResult<List<PoemGetScore>> GetAll();
     }
