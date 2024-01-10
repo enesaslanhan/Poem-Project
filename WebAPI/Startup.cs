@@ -40,6 +40,9 @@ namespace WebAPI
 
             services.AddSingleton<IPoemGetScoreService, PoemGetScoreManager>();
             services.AddSingleton<IPoemGetScoreDal, EfPoemGetScoreDal>();
+
+            services.AddSingleton<IPunishmentService, PunishmentManager>();
+            services.AddSingleton<IPunishmentDal, EfPunishmentDal>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
